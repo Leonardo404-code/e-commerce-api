@@ -1,3 +1,5 @@
 package products
 
-type Services interface{}
+type Services interface {
+	Get(page int) (*Result, error)
+}

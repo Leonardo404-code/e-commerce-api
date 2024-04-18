@@ -1,3 +1,5 @@
 package products
 
-type Repository interface{}
+type Repository interface {
+	Get(page int) (*Result, error)
+}
