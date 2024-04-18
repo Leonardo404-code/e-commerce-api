@@ -5,6 +5,7 @@ import (
 
 	"github.com/Leonargo404-code/e-commerce/internal/database"
 	"github.com/Leonargo404-code/e-commerce/internal/env"
+	"github.com/Leonargo404-code/e-commerce/internal/routes"
 	"github.com/gofiber/fiber/v3"
 	"github.com/gofiber/fiber/v3/middleware/cors"
 )
@@ -26,6 +27,8 @@ func main() {
 
 	app.Use(corsSettings)
 	app.Static("/images", "./images")
+
+	routes.ProductRoutes(app)
 
 	log.Fatal(app.Listen(":" + env.GetString("PORT")))
 }
