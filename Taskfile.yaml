@@ -1,0 +1,12 @@
+version: "3"
+
+tasks:
+  run:
+    cmds:
+      - go run ./cmd/server/main.go
+  db_up:
+    cmds:
+      - docker compose -f ./config/docker/docker-compose.yaml up -d --build
+  db_down:
+    cmds:
+      - docker compose -f ./config/docker/docker-compose.yml down
