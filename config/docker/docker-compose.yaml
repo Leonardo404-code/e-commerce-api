@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+  ecommerce-DB:
+    container_name: ecommerce
+    image: postgres
+    ports:
+      - "9948:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 12345678
+      POSTGRES_DB: ecommerce
