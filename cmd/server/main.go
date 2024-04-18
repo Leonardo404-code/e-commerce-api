@@ -3,10 +3,15 @@ package main
 import (
 	"log"
 
+	"github.com/Leonargo404-code/e-commerce/internal/database"
 	"github.com/Leonargo404-code/e-commerce/internal/env"
-	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v3"
+	"github.com/gofiber/fiber/v3/middleware/cors"
 )
+
+func init() {
+	database.Connect()
+}
 
 func main() {
 	app := fiber.New()
