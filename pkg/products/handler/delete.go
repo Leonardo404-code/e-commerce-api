@@ -1,8 +1,8 @@
 package handler
 
-import "github.com/gofiber/fiber/v3"
+import "github.com/gofiber/fiber/v2"
 
 // Delete implements products.Handlers.
-func (h *handler) Delete(c fiber.Ctx) error {
+func (h *handler) Delete(c *fiber.Ctx) error {
 	panic("unimplemented")
 }

@@ -11,7 +11,7 @@ type repository struct {
 }
 
 func Must() products.Repository {
-	return repository{
+	return &repository{
 		db: database.Connect(),
 	}
 }

@@ -6,8 +6,7 @@ import (
 	productsPkg "github.com/Leonargo404-code/e-commerce/pkg/products"
 )
 
-// Get implements products.Repository.
-func (r repository) Get(page int) (*productsPkg.Result, error) {
+func (r *repository) Get(page int) (*productsPkg.Result, error) {
 	var products []productsPkg.Product
 
 	totalPages := r.db.Find(&products).RowsAffected
