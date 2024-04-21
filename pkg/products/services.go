@@ -1,5 +1,6 @@
 package products
 
 type Services interface {
-	Create(product *Product) (*Product, error)
+	Create(*Product) (*Product, error)
+	Delete(*Filter) error
 }

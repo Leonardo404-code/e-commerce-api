@@ -15,4 +15,5 @@ func ProductRoutes(app *fiber.App) {
 
 	app.Get("/products", handlers.Get)
 	app.Post("/products", handlers.Create)
+	app.Delete("/products", handlers.Delete)
 }
