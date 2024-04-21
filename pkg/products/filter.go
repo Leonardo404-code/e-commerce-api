@@ -19,7 +19,13 @@ type (
 )
 
 func ParseFilters(queries map[string]string) (*Filter, error) {
-	filter := &Filter{}
+	filter := &Filter{
+		ID: []string{},
+		Pagination: &Pagination{
+			Page:       1,
+			MaxPerPage: 1,
+		},
+	}
 
 	if id, ok := queries["id"]; ok {
 		filter.ID = strings.Split(id, ",")
