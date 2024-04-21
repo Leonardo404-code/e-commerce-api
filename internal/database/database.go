@@ -17,7 +17,7 @@ func Connect() *gorm.DB {
 		panic(fmt.Sprintf("failed in database connection: %v", err))
 	}
 
-	db.AutoMigrate(&products.Product{}, &products.Image{})
+	db.AutoMigrate(&products.Product{})
 
 	return db
 }

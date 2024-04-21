@@ -1,6 +1,6 @@
 package products
 
 type Repository interface {
-	Get(page int) (*Result, error)
+	Get(*Filter) (*Result, error)
 	Create(newProduct *Product) error
 }

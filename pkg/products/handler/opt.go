@@ -10,3 +10,10 @@ func WithService(productSvc products.Services) Option {
 		return nil
 	}
 }
+
+func WithRepo(productRepo products.Repository) Option {
+	return func(h *handler) error {
+		h.repo = productRepo
+		return nil
+	}
+}

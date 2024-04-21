@@ -6,6 +6,7 @@ import (
 
 type handler struct {
 	service products.Services
+	repo    products.Repository
 }
 
 func new(opts ...Option) (products.Handlers, error) {
@@ -20,7 +21,7 @@ func new(opts ...Option) (products.Handlers, error) {
 	return h, nil
 }
 
-func Must(productSvc products.Services) products.Handlers {
+func Must(productSvc products.Services, productsRepo products.Repository) products.Handlers {
 	p, err := new(
 		WithService(productSvc),
 	)

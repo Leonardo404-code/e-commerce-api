@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/Leonargo404-code/e-commerce/pkg/products"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -17,7 +18,10 @@ func (h *handler) Get(c *fiber.Ctx) error {
 		})
 	}
 
-	result, err := h.service.Get(page)
+	productId := c.Queries()
+	filter := products.ParseFilters(page, productId)
+
+	result, err := h.service.Get(filter)
 	if err != nil {
 		c.Status(http.StatusInternalServerError)
 		return c.JSON(fiber.Map{

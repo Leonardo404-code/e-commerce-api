@@ -3,8 +3,10 @@ package service
 import (
 	"fmt"
 	"strings"
+	"time"
 
 	productsPkg "github.com/Leonargo404-code/e-commerce/pkg/products"
+	"github.com/google/uuid"
 )
 
 func (s *service) Create(
@@ -23,11 +25,14 @@ func (s *service) Create(
 	}
 
 	newProduct := &productsPkg.Product{
+		ID:          uuid.New(),
 		Name:        strings.ToLower(product.Name),
 		Description: product.Description,
 		Value:       product.Value,
 		Units:       product.Units,
 		Image:       product.Image,
+		CreatedAt:   time.Now(),
+		UpdatedAt:   time.Now(),
 	}
 
 	if err := s.repo.Create(newProduct); err != nil {
