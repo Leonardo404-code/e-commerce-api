@@ -24,6 +24,7 @@ func new(opts ...Option) (products.Handlers, error) {
 func Must(productSvc products.Services, productsRepo products.Repository) products.Handlers {
 	p, err := new(
 		WithService(productSvc),
+		WithRepo(productsRepo),
 	)
 	if err != nil {
 		panic(err)

@@ -15,12 +15,19 @@ func (r *repository) Get(filter *productsPkg.Filter) (*productsPkg.Result, error
 	}
 
 	if len(filter.ID) != 0 {
-		err := r.db.Where("id IN ?", filter.ID).Offset((filter.Page - 1) * 10).Limit(10).Order("id desc").Find(&products)
+		err := r.db.Where("id IN ?", filter.ID).
+			Offset((filter.Pagination.Page - 1) * 10).
+			Limit(filter.Pagination.MaxPerPage).
+			Order("id desc").
+			Find(&products)
 		if err.Error != nil {
 			return nil, fmt.Errorf("failed in find products: %v", err.Error)
 		}
 	} else {
-		err := r.db.Offset((filter.Page - 1) * 10).Limit(10).Order("id desc").Find(&products)
+		err := r.db.Offset((filter.Pagination.Page - 1) * 10).
+			Limit(filter.Pagination.MaxPerPage).
+			Order("id desc").
+			Find(&products)
 		if err.Error != nil {
 			return nil, fmt.Errorf("failed in find products: %v", err.Error)
 		}
@@ -29,6 +36,6 @@ func (r *repository) Get(filter *productsPkg.Filter) (*productsPkg.Result, error
 	return &productsPkg.Result{
 		Products: products,
 		Total:    int(totalPages),
-		Page:     filter.Page,
+		Page:     filter.Pagination.Page,
 	}, nil
 }
