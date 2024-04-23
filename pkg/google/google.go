@@ -11,4 +11,5 @@ type Google interface {
 		product string,
 		file multipart.File,
 	) error
+	Delete(ctx context.Context, productName string) error
 }

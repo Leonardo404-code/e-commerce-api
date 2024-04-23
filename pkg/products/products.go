@@ -24,9 +24,9 @@ type (
 	}
 
 	Result struct {
-		Products []Product `json:"products,omitempty"`
-		Total    int       `json:"total,omitempty"`
-		Page     int       `json:"page,omitempty"`
+		Products []*Product `json:"products,omitempty"`
+		Total    int        `json:"total,omitempty"`
+		Page     int        `json:"page,omitempty"`
 	}
 )
 

@@ -7,7 +7,7 @@ import (
 )
 
 func (r *repository) Get(filter *productsPkg.Filter) (*productsPkg.Result, error) {
-	var products []productsPkg.Product
+	var products []*productsPkg.Product
 
 	totalPages := r.db.Find(&products).RowsAffected
 	if totalPages == 0 {
