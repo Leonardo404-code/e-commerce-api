@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"github.com/Leonargo404-code/e-commerce/pkg/google"
 	"github.com/Leonargo404-code/e-commerce/pkg/products/handler"
 	"github.com/Leonargo404-code/e-commerce/pkg/products/repository"
 	"github.com/Leonargo404-code/e-commerce/pkg/products/service"
@@ -8,9 +9,11 @@ import (
 )
 
 func ProductRoutes(app *fiber.App) {
+	repository := repository.Must()
+	google := google.Must()
 	handlers := handler.Must(
-		service.Must(),
-		repository.Must(),
+		service.Must(repository, google),
+		repository,
 	)
 
 	app.Get("/products", handlers.Get)

@@ -1,7 +1,7 @@
 package products
 
 type Repository interface {
-	Get(*Filter) (*Result, error)
-	Create(newProduct *Product) error
-	Delete(*Filter) error
+	Get(filter *Filter) (*Result, error)
+	Create(newProduct *Product, upload func() error) error
+	Delete(filter *Filter) error
 }

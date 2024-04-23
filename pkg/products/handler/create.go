@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"encoding/json"
 	"net/http"
 
 	productsPkg "github.com/Leonargo404-code/e-commerce/pkg/products"
@@ -8,19 +9,38 @@ import (
 )
 
 func (h *handler) Create(c *fiber.Ctx) error {
-	product := &productsPkg.Product{}
+	form, err := c.MultipartForm()
+	if err != nil {
+		c.Status(http.StatusInternalServerError)
+		return c.JSON(fiber.Map{})
+	}
 
-	if err := c.BodyParser(product); err != nil {
-		c.Status(fiber.StatusBadRequest)
+	productInfo := form.Value["product"][0]
+	if len(productInfo) == 0 {
+		c.Status(http.StatusBadRequest)
 		return c.JSON(fiber.Map{
-			"error": "failed to parse-body",
+			"error": "error in get product info",
 		})
 	}
 
-	newProduct, err := h.service.Create(product)
+	productImage := form.File["image"][0]
+	if productImage == nil {
+		c.Status(http.StatusBadRequest)
+		return c.JSON(fiber.Map{
+			"error": "error in get product image",
+		})
+	}
+
+	product := &productsPkg.Product{}
+	if err := json.Unmarshal([]byte(productInfo), &product); err != nil {
+		c.Status(http.StatusInternalServerError)
+		return c.JSON(fiber.Map{})
+	}
+
+	newProduct, err := h.service.Create(product, productImage)
 	if err != nil {
 		c.Status(http.StatusInternalServerError)
-		c.JSON(fiber.Map{
+		return c.JSON(fiber.Map{
 			"error": err,
 		})
 	}

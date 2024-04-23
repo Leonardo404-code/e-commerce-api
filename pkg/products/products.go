@@ -2,8 +2,11 @@ package products
 
 import (
 	"database/sql"
+	"fmt"
+	"strings"
 	"time"
 
+	"github.com/Leonargo404-code/e-commerce/internal/env"
 	"github.com/google/uuid"
 )
 
@@ -26,3 +29,25 @@ type (
 		Page     int       `json:"page,omitempty"`
 	}
 )
+
+func (p *Product) FormatName() string {
+	productNameTrim := strings.Trim(p.Name, " ")
+	productNameToLower := strings.ToLower(productNameTrim)
+	return productNameToLower
+}
+
+func (p *Product) FormatStorageURL(StorageURL, BucketName string) string {
+	productNameTrim := strings.Trim(p.Name, " ")
+	countSpaces := strings.Count(productNameTrim, " ")
+	productNameReplace := strings.Replace(productNameTrim, " ", "-", countSpaces)
+	productNameToLower := strings.ToLower(productNameReplace)
+
+	imageURL := fmt.Sprintf(
+		"%s/%s/%s",
+		env.GetString(StorageURL),
+		env.GetString(BucketName),
+		productNameToLower,
+	)
+
+	return imageURL
+}

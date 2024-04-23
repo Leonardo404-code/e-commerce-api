@@ -1,0 +1,6 @@
+package service
+
+const (
+	STORAGEURL = "GCP.STORAGE_URL"
+	BUCKETNAME = "GCP.BUCKET_NAME"
+)

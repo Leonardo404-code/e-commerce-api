@@ -30,3 +30,4 @@ vendor/
 #enviroments variables
 *.env
 config/env/*.yaml
+/config/credentials
