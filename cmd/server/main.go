@@ -29,6 +29,7 @@ func main() {
 	app.Static("/images", "./images")
 
 	routes.ProductRoutes(app)
+	routes.StripeRoutes(app)
 
 	log.Fatal(app.Listen(":" + env.GetString("PORT")))
 }
