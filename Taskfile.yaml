@@ -10,3 +10,7 @@ tasks:
   db_down:
     cmds:
       - docker compose -f ./config/docker/docker-compose.yml down
+  update_docs:
+    cmds:
+      - "swag fmt ./"
+      - "swag init -ot json -g ./cmd/server/main.go"

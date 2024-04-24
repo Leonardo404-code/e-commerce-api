@@ -1,0 +1,220 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/products": {
+            "get": {
+                "description": "Get products matching passed filters",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Get Products",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Products ID you want",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Current page for pagination system",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Maximum number of items per page",
+                        "name": "maxPerPage",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/handler.ResultDoc"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create a new payment indent in stripe",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Stripe"
+                ],
+                "summary": "Payment indent",
+                "parameters": [
+                    {
+                        "description": "Required payment information",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/stripe.Payment"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"client_secret\": \"0a52ffce-20ed-43d6-81eb-aa5deaf33f34\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete products from database matching passed filters",
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Delete Products",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Products ID you want to delete",
+                        "name": "id",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Current page for pagination system",
+                        "name": "page",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Maximum number of items per page",
+                        "name": "maxPerPage",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "handler.DeletedAt": {
+            "type": "object",
+            "properties": {
+                "Time": {
+                    "type": "string"
+                },
+                "Valid": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "handler.ProductDoc": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string",
+                    "example": "1980-00-00T01:00:00.00000-03:00"
+                },
+                "deleted_at": {
+                    "$ref": "#/definitions/handler.DeletedAt"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "a nice product"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "a8fa2f1d-ca74-47cc-9631-28c89c8470a5"
+                },
+                "image": {
+                    "type": "string",
+                    "example": "http://storage.com/product"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "product"
+                },
+                "units": {
+                    "type": "integer",
+                    "example": 10
+                },
+                "updated_at": {
+                    "type": "string",
+                    "example": "1980-00-00T01:00:00.00000-03:00"
+                },
+                "value": {
+                    "type": "number",
+                    "example": 500.75
+                }
+            }
+        },
+        "handler.ProductReqDoc": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "example": "a nice product"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "product"
+                },
+                "units": {
+                    "type": "integer",
+                    "example": 10
+                },
+                "value": {
+                    "type": "number",
+                    "example": 500.75
+                }
+            }
+        },
+        "handler.ResultDoc": {
+            "type": "object",
+            "properties": {
+                "page": {
+                    "type": "integer"
+                },
+                "products": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/handler.ProductDoc"
+                    }
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "stripe.Payment": {
+            "type": "object",
+            "properties": {
+                "amount": {
+                    "type": "integer",
+                    "example": 500
+                },
+                "email": {
+                    "type": "string",
+                    "example": "leonardobispo.dev@gmail.com"
+                }
+            }
+        }
+    }
+}

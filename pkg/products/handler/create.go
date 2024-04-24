@@ -8,6 +8,15 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+// @Summary		Create Products
+// @Description	Create a new product and persist in database
+// @Tags			Products
+// @Router			/products [post]
+// @Param			data			body		handler.ProductReqDoc	true	"Required product information"
+// @Param			productImage	formData	file					true	"Required product image"
+// @Accept			multipart/form-data
+// @Produce		json
+// @Success		200	{object}	handler.ProductDoc
 func (h *handler) Create(c *fiber.Ctx) error {
 	form, err := c.MultipartForm()
 	if err != nil {

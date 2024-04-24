@@ -7,6 +7,14 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+// @Summary		Delete Products
+// @Description	Delete products from database matching passed filters
+// @Tags			Products
+// @Router			/products [delete]
+// @Param			id			query	string	false	"Products ID you want to delete"
+// @Param			page		query	int		true	"Current page for pagination system"
+// @Param			maxPerPage	query	int		true	"Maximum number of items per page"
+// @Success		200			"OK"
 func (h *handler) Delete(c *fiber.Ctx) error {
 	filter, err := productsPkg.ParseFilters(c.Queries())
 	if err != nil {
