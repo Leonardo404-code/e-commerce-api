@@ -5,14 +5,14 @@ import (
 	"github.com/Leonargo404-code/e-commerce/pkg/products"
 )
 
-type service struct {
-	repo    products.Repository
-	storage google.Google
+type Service struct {
+	Repo    products.Repository
+	Storage google.Google
 }
 
 func Must(repository products.Repository, storage google.Google) products.Services {
-	return &service{
-		repo:    repository,
-		storage: storage,
+	return &Service{
+		Repo:    repository,
+		Storage: storage,
 	}
 }

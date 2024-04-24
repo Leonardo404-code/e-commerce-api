@@ -7,8 +7,8 @@ import (
 	productsPkg "github.com/Leonargo404-code/e-commerce/pkg/products"
 )
 
-func (s *service) Delete(filter *productsPkg.Filter) error {
-	products, err := s.repo.Get(filter)
+func (s *Service) Delete(filter *productsPkg.Filter) error {
+	products, err := s.Repo.Get(filter)
 	if err != nil {
 		return fmt.Errorf("%w: %v", ErrGetProduct, err)
 	}
@@ -23,15 +23,15 @@ func (s *service) Delete(filter *productsPkg.Filter) error {
 
 	productName := products.Products[0].Name
 
-	if err := s.repo.Delete(filter, s.deleteFromBucket(productName)); err != nil {
+	if err := s.Repo.Delete(filter, s.deleteFromBucket(productName)); err != nil {
 		return fmt.Errorf("%w: %v", ErrDeleteProduct, err)
 	}
 
 	return nil
 }
 
-func (s *service) deleteFromBucket(imageURL string) func() error {
+func (s *Service) deleteFromBucket(imageURL string) func() error {
 	return func() error {
-		return s.storage.Delete(context.Background(), imageURL)
+		return s.Storage.Delete(context.Background(), imageURL)
 	}
 }

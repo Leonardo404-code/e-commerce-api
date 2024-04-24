@@ -4,6 +4,9 @@ tasks:
   run:
     cmds:
       - go run ./cmd/server/main.go
+  test:
+    cmds:
+      - go test ./...
   db_up:
     cmds:
       - docker compose -f ./config/docker/docker-compose.yaml up -d --build

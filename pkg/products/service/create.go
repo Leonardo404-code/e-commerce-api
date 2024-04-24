@@ -10,8 +10,7 @@ import (
 	"github.com/google/uuid"
 )
 
-// TODO: ADD URL TO NEW PRODUCT STRUCT
-func (s *service) Create(
+func (s *Service) Create(
 	product *productsPkg.Product,
 	productImage *multipart.FileHeader,
 ) (*productsPkg.Product, error) {
@@ -45,18 +44,18 @@ func (s *service) Create(
 		return nil, err
 	}
 
-	if err := s.repo.Create(newProduct, s.uploadToBucket(newProduct.Name, imageFile)); err != nil {
+	if err := s.Repo.Create(newProduct, s.uploadToBucket(newProduct.Name, imageFile)); err != nil {
 		return nil, fmt.Errorf("error in create product: %v", err)
 	}
 
 	return newProduct, nil
 }
 
-func (s *service) uploadToBucket(
+func (s *Service) uploadToBucket(
 	productName string,
 	productImage multipart.File,
 ) func() error {
 	return func() error {
-		return s.storage.Upload(context.Background(), productName, productImage)
+		return s.Storage.Upload(context.Background(), productName, productImage)
 	}
 }

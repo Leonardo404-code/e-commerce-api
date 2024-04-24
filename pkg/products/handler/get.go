@@ -21,7 +21,7 @@ func (h *handler) Get(c *fiber.Ctx) error {
 	filter, err := products.ParseFilters(queries)
 	if err != nil {
 		c.Status(http.StatusBadRequest)
-		c.JSON(fiber.Map{
+		return c.JSON(fiber.Map{
 			"error": err.Error,
 		})
 	}
